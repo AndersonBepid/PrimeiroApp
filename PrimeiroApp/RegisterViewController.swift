@@ -29,7 +29,32 @@ class RegisterViewController: UIViewController {
     }
 
     @IBAction func saveTapped(_ sender: UIButton) {
-        print("oko")
+        guard let name = nameTextField.text,
+              !name.isEmpty,
+              let object = objectTextField.text,
+              !object.isEmpty
+        else { return }
+        // save info
+        print(name, object, datePicker.date)
+        let lending = Lending(name: name, object: object, date: datePicker.date)
+        LendingService.shared.lendings.append(lending)
+        
     }
-    
+
+    @IBAction func listTapped(_ sender: Any) {
+        for lending in LendingService.shared.lendings {
+            print(lending.name)
+        }
+        for (index, value) in LendingService.shared.lendings.enumerated() {
+            print(value.name, index)
+        }
+        
+        LendingService.shared.lendings.forEach { (lending) in
+            print(lending.name)
+        }
+        
+        LendingService.shared.lendings.forEach {
+            print($0.name)
+        }
+    }
 }
